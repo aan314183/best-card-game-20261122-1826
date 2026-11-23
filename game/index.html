@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>EMBER DUEL — Duel Kartu Api</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+  <main id="board">
+    <header id="topbar">
+      <div class="brand">🔥 EMBER DUEL</div>
+      <div class="meta"><span id="turnLabel">Giliran 1</span> · <span id="scoreLabel">Skor 0</span> · <span id="deckLabel"></span></div>
+      <button id="newGameBtn" class="btn small" type="button">↻ Duel Baru (R)</button>
+    </header>
+
+    <section id="opponentRow" class="side opponent">
+      <div class="side-info">
+        <div class="side-name">👑 Ratu Abu <span class="tag">LAWAN · AI</span></div>
+        <div class="hpbar"><div id="aiHpFill" class="hpfill"></div><span id="aiHpText" class="hptext"></span></div>
+        <div id="aiMana" class="mana"></div>
+        <div id="aiArmor" class="armor"></div>
+      </div>
+      <div id="aiHand" class="hand" aria-label="Tangan lawan"></div>
+    </section>
+
+    <section id="tableRow">
+      <div class="table-side">
+        <h3>Meja — Kartu Kamu</h3>
+        <div id="playedPlayer" class="played"></div>
+      </div>
+      <div id="centerCol">
+        <div id="phaseLabel">Giliranmu — mainkan kartu!</div>
+        <button id="endTurnBtn" class="btn big" type="button">▶ Akhiri Giliran (E)</button>
+        <div id="resonanceNote" class="note"></div>
+      </div>
+      <div class="table-side">
+        <h3>Meja — Kartu Ratu Abu</h3>
+        <div id="playedAi" class="played"></div>
+      </div>
+    </section>
+
+    <section id="playerRow" class="side player">
+      <div class="side-info">
+        <div class="side-name">🧑 Kamu <span class="tag">PEMAIN</span></div>
+        <div class="hpbar"><div id="playerHpFill" class="hpfill"></div><span id="playerHpText" class="hptext"></span></div>
+        <div id="playerMana" class="mana"></div>
+        <div id="playerArmor" class="armor"></div>
+      </div>
+      <div id="playerHand" class="hand" aria-label="Tangan pemain"></div>
+    </section>
+  </main>
+
+  <aside id="logPanel">
+    <h3>📜 Catatan Duel</h3>
+    <ol id="logList"></ol>
+    <div class="help">• Klik kartu untuk memainkannya.<br>⌨ <b>1–5</b> mainkan kartu · <b>Enter</b> mainkan yang dipilih · <b>E</b> akhiri giliran · <b>R</b> duel baru</div>
+    <div class="help rules">🔥 Api: kerusakan besar · ❄️ Es: Beku (mana lawan −1) · 🪨 Batu: +Perisai · 🍃 Angin: tarik kartu.<br>✨ <b>Resonansi:</b> kartu ke-2+ dengan elemen sama dalam satu giliran mendapat +2 kekuatan.</div>
+  </aside>
+</div>
+
+<div id="titleOverlay" class="overlay">
+  <div class="panel title-panel">
+    <div class="title-ember">🔥</div>
+    <h1>EMBER DUEL</h1>
+    <p class="subtitle">Duel kartu api melawan Ratu Abu — 30 nyawa, 4 elemen, 1 pemenang.</p>
+    <div class="title-cards"><span class="mini-card api">🔥 9</span><span class="mini-card es">❄️ 5</span><span class="mini-card batu">🪨 7</span><span class="mini-card angin">🍃 5</span></div>
+    <p class="howto">Mainkan kartu dari tanganmu dengan mana. Setiap giliran manamu bertambah. Kartu menyerang, memulihkan, memberi perisai, atau membekukan lawan. Habiskan nyawa Ratu Abu sebelum nyawamu habis!</p>
+    <button id="startBtn" class="btn huge" type="button">▶ MULAI DUEL</button>
+    <p class="keys">Klik kartu atau tekan 1–5 · E = akhiri giliran · R = duel baru</p>
+  </div>
+</div>
+
+<div id="endOverlay" class="overlay hidden">
+  <div class="panel end-panel">
+    <div id="endEmoji" class="title-ember">🏆</div>
+    <h1 id="endTitle">MENANG!</h1>
+    <p id="endText" class="subtitle"></p>
+    <p id="endStats" class="howto"></p>
+    <button id="againBtn" class="btn huge" type="button">🔥 DUEL LAGI</button>
+  </div>
+</div>
+
+<script src="src/cards.js"></script>
+<script src="src/ai.js"></script>
+<script src="src/game.js"></script>
+<script src="src/render.js"></script>
+<script src="src/main.js"></script>
+<script src="src/shots.js"></script>
+</body>
+</html>

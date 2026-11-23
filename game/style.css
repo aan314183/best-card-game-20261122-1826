@@ -1,0 +1,101 @@
+/* style.css — Ember Duel table, cards and overlays. */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+body {
+  font-family: "Trebuchet MS", Verdana, sans-serif;
+  color: #f5e9d0;
+  background: #17100a radial-gradient(ellipse at 50% 0%, #3a1c0d 0%, #17100a 60%);
+  overflow: hidden;
+}
+#app { display: grid; grid-template-columns: 1fr 250px; height: 100vh; }
+#board { display: flex; flex-direction: column; padding: 10px 14px; gap: 8px; min-width: 0; }
+
+#topbar { display: flex; align-items: center; gap: 18px; padding: 4px 6px; }
+.brand { font-size: 26px; font-weight: 900; letter-spacing: 2px; color: #ffb347; text-shadow: 0 2px 12px rgba(255, 120, 0, .6); }
+.meta { font-size: 15px; color: #ffd9a0; }
+.btn {
+  font-family: inherit; cursor: pointer; border: 2px solid #ffb347; border-radius: 10px;
+  background: linear-gradient(#7a2e0d, #4a1a05); color: #ffe9c4; font-weight: 800;
+}
+.btn:hover { filter: brightness(1.25); }
+.btn.small { margin-left: auto; padding: 6px 12px; font-size: 14px; }
+.btn.big { padding: 12px 18px; font-size: 17px; width: 100%; }
+.btn.huge { padding: 14px 26px; font-size: 20px; margin-top: 10px; }
+
+.side { display: flex; align-items: center; gap: 16px; padding: 6px 12px; border-radius: 14px;
+  background: rgba(0, 0, 0, .35); border: 1px solid rgba(255, 179, 71, .25); }
+.side.opponent { border-color: rgba(168, 85, 247, .45); }
+.side-info { width: 250px; flex: none; }
+.side-name { font-size: 19px; font-weight: 900; margin-bottom: 5px; }
+.tag { font-size: 11px; background: #a855f7; color: #fff; border-radius: 6px; padding: 2px 6px; vertical-align: middle; }
+.player .tag { background: #e5484d; }
+.hpbar { position: relative; height: 24px; background: #2a0d0d; border-radius: 12px; overflow: hidden; border: 1px solid #7f1d1d; }
+.hpfill { height: 100%; background: linear-gradient(90deg, #dc2626, #f97316); transition: width .35s; }
+.hptext { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  font-weight: 900; font-size: 15px; color: #fff; text-shadow: 0 1px 2px #000; }
+.mana { margin-top: 5px; font-size: 16px; letter-spacing: 2px; color: #7dd3fc; min-height: 20px; }
+.mana .spent { opacity: .25; }
+.armor { font-size: 14px; color: #cbd5e1; min-height: 18px; }
+
+.hand { display: flex; gap: 10px; flex: 1; min-height: 140px; align-items: center; }
+.hand .card { cursor: pointer; }
+.hand .card:hover { transform: translateY(-10px) scale(1.04); }
+.hand .card.disabled { opacity: .55; cursor: not-allowed; }
+.hand .card.selected { outline: 3px solid #ffd166; transform: translateY(-10px); }
+
+#tableRow { flex: 1; display: grid; grid-template-columns: 1fr 210px 1fr; gap: 10px; align-items: stretch;
+  background: radial-gradient(ellipse at center, #14532d 0%, #0b2e18 70%);
+  border: 3px solid #8b5a2b; border-radius: 18px; padding: 8px 12px; min-height: 170px; }
+.table-side h3 { font-size: 14px; color: #d9f99d; margin-bottom: 6px; text-align: center; }
+.played { display: flex; gap: 8px; justify-content: center; min-height: 140px; align-items: center; flex-wrap: wrap; }
+.played .empty { color: rgba(255, 255, 255, .45); font-size: 14px; }
+#centerCol { display: flex; flex-direction: column; justify-content: center; gap: 10px; text-align: center; }
+#phaseLabel { font-size: 15px; font-weight: 800; color: #fef3c7; min-height: 20px; }
+.note { font-size: 13px; color: #fde68a; min-height: 18px; }
+
+.card { width: 100px; height: 136px; border-radius: 12px; padding: 6px 7px; position: relative;
+  background: linear-gradient(160deg, #fff8ec, #f3e2c2); color: #1c1917; flex: none;
+  border: 3px solid #44403c; box-shadow: 0 4px 10px rgba(0, 0, 0, .55); transition: transform .15s;
+  display: flex; flex-direction: column; }
+.card.api { border-color: #dc2626; }
+.card.es { border-color: #0284c7; }
+.card.batu { border-color: #a16207; }
+.card.angin { border-color: #059669; }
+.card .cost { position: absolute; top: 5px; left: 6px; width: 26px; height: 26px; border-radius: 50%;
+  background: #0ea5e9; color: #fff; font-weight: 900; font-size: 15px; display: flex; align-items: center; justify-content: center;
+  border: 2px solid #fff; box-shadow: 0 1px 4px rgba(0, 0, 0, .4); }
+.card .el { position: absolute; top: 5px; right: 7px; font-size: 20px; }
+.card .power { font-size: 34px; font-weight: 900; text-align: center; margin-top: 18px; line-height: 1; }
+.card .power-label { text-align: center; font-size: 10px; letter-spacing: 2px; color: #78716c; font-weight: 800; }
+.card .cname { font-size: 12px; font-weight: 900; text-align: center; margin-top: 4px; line-height: 1.15; }
+.card .ctext { font-size: 11px; text-align: center; color: #57534e; margin-top: 4px; line-height: 1.25; }
+.card.back { background: repeating-linear-gradient(45deg, #4c1d95, #4c1d95 10px, #6b21a8 10px, #6b21a8 20px);
+  border-color: #c084fc; align-items: center; justify-content: center; }
+.card.back .q { font-size: 44px; color: #e9d5ff; font-weight: 900; }
+
+#logPanel { background: rgba(0, 0, 0, .45); border-left: 1px solid rgba(255, 179, 71, .3);
+  padding: 12px; display: flex; flex-direction: column; gap: 8px; overflow: hidden; }
+#logPanel h3 { font-size: 16px; color: #ffd9a0; }
+#logList { list-style: none; flex: 1; overflow-y: auto; font-size: 13.5px; line-height: 1.45; }
+#logList li { padding: 4px 2px; border-bottom: 1px solid rgba(255, 255, 255, .08); }
+#logList li b { color: #fbbf24; }
+.help { font-size: 12.5px; color: #d6c9a8; line-height: 1.5; }
+.help.rules { border-top: 1px solid rgba(255, 255, 255, .15); padding-top: 8px; }
+
+.overlay { position: fixed; inset: 0; background: rgba(10, 5, 2, .82); display: flex;
+  align-items: center; justify-content: center; z-index: 50; }
+.overlay.hidden { display: none; }
+.panel { background: linear-gradient(#2b1608, #1a0d05); border: 3px solid #ffb347; border-radius: 20px;
+  padding: 28px 36px; text-align: center; max-width: 620px; box-shadow: 0 0 60px rgba(255, 120, 0, .35); }
+.panel h1 { font-size: 52px; letter-spacing: 4px; color: #ffb347; margin: 6px 0; }
+.title-ember { font-size: 56px; }
+.subtitle { font-size: 17px; color: #ffe9c4; }
+.howto { font-size: 15px; color: #e7d6b0; line-height: 1.55; margin-top: 12px; }
+.keys { font-size: 13px; color: #b8a67e; margin-top: 14px; }
+.title-cards { display: flex; gap: 10px; justify-content: center; margin: 14px 0 4px; }
+.mini-card { font-size: 18px; font-weight: 900; background: #fff8ec; color: #1c1917;
+  border-radius: 8px; padding: 6px 12px; border: 2px solid #888; }
+.mini-card.api { border-color: #dc2626; } .mini-card.es { border-color: #0284c7; }
+.mini-card.batu { border-color: #a16207; } .mini-card.angin { border-color: #059669; }
+#endOverlay.win .panel { border-color: #facc15; box-shadow: 0 0 70px rgba(250, 204, 21, .5); }
+#endOverlay.loss .panel { border-color: #64748b; box-shadow: 0 0 40px rgba(100, 116, 139, .4); }
